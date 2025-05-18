@@ -16,6 +16,15 @@ app.get('/', async (req, res) => {
     }
 });
 
+app.get('/cat', async (req, res) => {
+    try {
+        const result = await pool.query('select * from categories');
+        res.json(result.rows);
+    } catch (err) {
+        res.status(500).json({ Error: err.message });
+    }
+});
+
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
     console.log(`Connect Successfully... on PORT ${PORT}`);
